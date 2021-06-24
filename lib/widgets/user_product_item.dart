@@ -3,8 +3,6 @@ import 'package:myshop/providers/products.dart';
 import 'package:myshop/screens/edit_product_screen.dart';
 import 'package:provider/provider.dart';
 
-import '../screens/user_products_screen.dart';
-
 class UserProductItem extends StatelessWidget {
   final String id;
   final String title;
