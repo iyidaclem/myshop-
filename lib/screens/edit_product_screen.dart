@@ -14,8 +14,9 @@ class EditProductScreen extends StatefulWidget {
 class _EditedProductScreenState extends State<EditProductScreen> {
   final _imageUrlController = TextEditingController();
   final _form = GlobalKey<FormState>();
+
   var _editedProduct = Product(
-      id: "", title: "title", description: "", price: 0.0, imageUrl: "");
+      id: "", title: "", description: "", price: 0.0, imageUrl: "");
   var url = "";
   void changeUrl(_) {
     setState(() {
@@ -46,6 +47,7 @@ class _EditedProductScreenState extends State<EditProductScreen> {
     "imageUrl": ""
   };
   var _isInit = true;
+
   @override
   void didChangeDependencies() {
     if (_isInit) {
@@ -95,7 +97,7 @@ class _EditedProductScreenState extends State<EditProductScreen> {
                 textInputAction: TextInputAction.next,
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return "Enter valid input";
+                    return "Enter valid title";
                   }
                   return null;
                 },
@@ -119,7 +121,10 @@ class _EditedProductScreenState extends State<EditProductScreen> {
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return "Enter valid input";
+                    return "Enter price";
+                  }
+                  if(double.parse(value)<=0){
+                    return "Enter amount greater than 0";
                   }
                   return null;
                 },
@@ -139,6 +144,7 @@ class _EditedProductScreenState extends State<EditProductScreen> {
                       labelText: "Description", icon: Icon(Icons.details)),
                   maxLines: 3,
                   keyboardType: TextInputType.multiline,
+                  textInputAction: TextInputAction.next,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Enter valid input";
