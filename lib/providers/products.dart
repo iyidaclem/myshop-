@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:convert' as convert;
+import 'package:http/http.dart' as http;
 
 import './product.dart';
 
@@ -64,8 +66,16 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  void addProduct(Product product) {
-    final newProduct = Product(
+  Future<void> addProduct(Product product) {
+    final url = Uri.parse("https://my-shop-13d8d-default-rtdb.firebaseio.com/products.json");
+    return http.post(url,body:convert.json.encode({
+      "title":product.title,
+      "description":product.description,
+      "imageUrl":product.imageUrl,
+      "price":product.price,
+      "isFavorite":product.isFavorite
+    })).then((response){
+       final newProduct = Product(
       id: DateTime.now().toString(),
       title: product.title,
       price: product.price,
@@ -74,6 +84,9 @@ class Products with ChangeNotifier {
     );
     _items.add(newProduct);
     notifyListeners();
+    });
+
+   
   }
 
   void updateProduct(String id, Product newProduct) {

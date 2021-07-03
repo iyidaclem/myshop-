@@ -18,6 +18,7 @@ class _EditedProductScreenState extends State<EditProductScreen> {
   var _editedProduct = Product(
       id: "", title: "", description: "", price: 0.0, imageUrl: "");
   var url = "";
+  var _isLoading = false;
   void changeUrl(_) {
     setState(() {
       url = _imageUrlController.text;
@@ -30,14 +31,26 @@ class _EditedProductScreenState extends State<EditProductScreen> {
       return;
     }
     _form.currentState!.save();
+    setState(() {
+      _isLoading = true;
+    });
 
     if (_editedProduct.id != "") {
       Provider.of<Products>(context, listen: false).updateProduct(_editedProduct.id,_editedProduct);
+        setState(() {
+          _isLoading=false;
+        });
+        Navigator.of(context).pop();
     } else {
-      Provider.of<Products>(context, listen: false).addProduct(_editedProduct);
+      Provider.of<Products>(context, listen: false).addProduct(_editedProduct).then((result){
+        setState(() {
+          _isLoading=false;
+        });
+        Navigator.of(context).pop();
+      });
     }
     
-    Navigator.of(context).pop();
+    // Navigator.of(context).pop();
   }
 
   var _initValues = {
@@ -84,7 +97,7 @@ class _EditedProductScreenState extends State<EditProductScreen> {
         title: Text("Edit Product"),
         actions: [IconButton(onPressed: _saveForm, icon: Icon(Icons.save))],
       ),
-      body: Padding(
+      body: _isLoading?Center(child: CircularProgressIndicator(),):Padding(
         padding: const EdgeInsets.all(15.0),
         child: Form(
           key: _form,
