@@ -8,13 +8,13 @@
 // waiting for response using then function
 //working with futures 
 // void main(){
-//   var myFuture = Future((){
-//     return "hello";
-//   });
+  // var myFuture = Future((){
+  //   return "hello";
+  // });
 
-//   print("this runs first");
-//   myFuture.then((result)=>{print(result)});
-//   print("This also runs before the future is done!");
+  // print("this runs first");
+  // myFuture.then((result)=>{print(result)});
+  // print("This also runs before the future is done!");
 // }
 
 //showing loading indicator
