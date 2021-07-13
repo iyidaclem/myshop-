@@ -76,6 +76,7 @@ class Products with ChangeNotifier {
           convert.json.decode(response.body) as Map<String, dynamic>;
 
       final List<Product> loadedProducts = [];
+
       extractdData.forEach((prodId, prodData) {
         loadedProducts.add(Product(
             id: prodId,
@@ -122,18 +123,9 @@ class Products with ChangeNotifier {
     }
   }
 
-  Future<void> updateProduct(String id, Product newProduct) async{
+  Future<void> updateProduct(String id, Product newProduct) async {
     final prodIndex = _items.indexWhere((prod) => prod.id == id);
     if (prodIndex >= 0) {
-      final url = Uri.parse(
-        "https://my-shop-13d8d-default-rtdb.firebaseio.com/products/$id.json");
-        await http.patch(url,body: convert.json.encode({
-          "title": newProduct.title,
-          "description": newProduct.description,
-          "imageUrl": newProduct.imageUrl,
-          "price": newProduct.price
-        }),);
-
       _items[prodIndex] = newProduct;
       notifyListeners();
     } else {
@@ -142,11 +134,6 @@ class Products with ChangeNotifier {
   }
 
   void removeProduct(String id) {
-    
-      final url = Uri.parse(
-        "https://my-shop-13d8d-default-rtdb.firebaseio.com/products/$id.json");
-      http.delete(url);
-
     _items.removeWhere((prod) => prod.id == id);
     notifyListeners();
   }
