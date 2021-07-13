@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // connecting our app to extenral database
 // 1. firebase
 // 2. Go  to firebase console
@@ -23,3 +24,10 @@
 //3. add var isLoading: false in the 
 //4. set isLoading to true in the saveform() function
 //5. in the body render conditional widget if isLoading: CircularProgressIndicator():the main screen()
+=======
+// Error handing
+// using catchError() to handing errors
+// 1. add catchError((error){}) in the addProduct() inside products.dart
+// you can use "throw error" to throw new error
+// 2. in the editscreen page you can catch error after calling addProduct to show dialogue
+>>>>>>> 2e5d5b7 (changes made)
