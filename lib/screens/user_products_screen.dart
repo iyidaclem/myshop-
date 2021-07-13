@@ -9,27 +9,35 @@ import '../widgets/user_product_item.dart';
 class UserProductsScreen extends StatelessWidget {
   static const routeName = "./user_product_screen";
 
+  Future<void> _refreshProduct(BuildContext context) async{
+      await Provider.of<Products>(context).fetchAndSetProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final productData = Provider.of<Products>(context);
+    final productData = Provider.of<Products>(context,listen: false);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Your Products"),
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(EditProductScreen.routeName,arguments: "");
+                Navigator.of(context)
+                    .pushNamed(EditProductScreen.routeName, arguments: "");
               },
               icon: const Icon(Icons.add))
         ],
       ),
       drawer: AppDrawer(),
-      body: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: ListView.builder(
-            itemCount: productData.items.length,
-            itemBuilder: (ctx, i) => UserProductItem(productData.items[i].id,
-                productData.items[i].title, productData.items[i].imageUrl)),
+      body: RefreshIndicator(
+        onRefresh: ()=>_refreshProduct(context),
+        child: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: ListView.builder(
+              itemCount: productData.items.length,
+              itemBuilder: (ctx, i) => UserProductItem(productData.items[i].id,
+                  productData.items[i].title, productData.items[i].imageUrl)),
+        ),
       ),
     );
   }

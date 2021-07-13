@@ -1,33 +1,19 @@
-<<<<<<< HEAD
-// connecting our app to extenral database
-// 1. firebase
-// 2. Go  to firebase console
-// 3. create new app and test mode create a realtime database
-// 4. install http package for sending http request: flutter pub add http
-      // using http package
-// sending posting Request
-// waiting for response using then function
-//working with futures 
-// void main(){
-  // var myFuture = Future((){
-  //   return "hello";
-  // });
+// using asyc and await
+//to use async and await in add async before the body of the code
+// ... async { ...}
+//with this you can get rid of .then() instead you add await to any future event ...{ await http.post()}
+//async  function return something by default therefore there is no need for return keyword
+// when using async function, then catchError function will be replace by 
+// try{...}
+// catch(){...} finall{...} blocks
 
-  // print("this runs first");
-  // myFuture.then((result)=>{print(result)});
-  // print("This also runs before the future is done!");
-// }
+// fetching records from firebase
+// 1. create fechAndSetProduct() in the products provider
+// 2. in the product overview screen, call the function in the initstate using future delay helper function
+// 3. display loading spinners when fetching data
 
-//showing loading indicator
-//1. in products.dart return futures in addProducts() and return http.post()
-//2. In the edit_product_screen.dart call then function in addProduct() in the provider
-//3. add var isLoading: false in the 
-//4. set isLoading to true in the saveform() function
-//5. in the body render conditional widget if isLoading: CircularProgressIndicator():the main screen()
-=======
-// Error handing
-// using catchError() to handing errors
-// 1. add catchError((error){}) in the addProduct() inside products.dart
-// you can use "throw error" to throw new error
-// 2. in the editscreen page you can catch error after calling addProduct to show dialogue
->>>>>>> 2e5d5b7 (changes made)
+// adding pull and refresh to part of our app
+// 1. in the userproduct.dart page
+// 2. Wrap the body with RefreshIndicator() widget
+// 3. add onRefresh function  the widget
+// 4. from function make a call to fetchAndSetProduct
