@@ -19,3 +19,9 @@
 // 4. from function make a call to fetchAndSetProduct
 
 //updating  product using patch
+// 1. convert updateProduct to Future by adding async keyword and 
+// 2. make a patch request to firebase and pass the id of the product
+// 3. add await keyworkd to provider at EditProductScreen
+
+//Deleteing data
+
