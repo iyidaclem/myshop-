@@ -17,3 +17,5 @@
 // 2. Wrap the body with RefreshIndicator() widget
 // 3. add onRefresh function  the widget
 // 4. from function make a call to fetchAndSetProduct
+
+//updating  product using patch
