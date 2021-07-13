@@ -5,7 +5,7 @@
 //async  function return something by default therefore there is no need for return keyword
 // when using async function, then catchError function will be replace by 
 // try{...}
-// catch(){...} finall{...} blocks
+// catch(error){...} finall{...} blocks
 
 // fetching records from firebase
 // 1. create fechAndSetProduct() in the products provider
