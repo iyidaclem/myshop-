@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import './product.dart';
 
 class Products with ChangeNotifier {
+
   List<Product> _items = [
     // Product(
     //   id: 'p1',
@@ -122,17 +123,20 @@ class Products with ChangeNotifier {
     }
   }
 
-  Future<void> updateProduct(String id, Product newProduct) async{
+  Future<void> updateProduct(String id, Product newProduct) async {
     final prodIndex = _items.indexWhere((prod) => prod.id == id);
     if (prodIndex >= 0) {
       final url = Uri.parse(
-        "https://my-shop-13d8d-default-rtdb.firebaseio.com/products/$id.json");
-        await http.patch(url,body: convert.json.encode({
+          "https://my-shop-13d8d-default-rtdb.firebaseio.com/products/$id.json");
+      await http.patch(
+        url,
+        body: convert.json.encode({
           "title": newProduct.title,
           "description": newProduct.description,
           "imageUrl": newProduct.imageUrl,
           "price": newProduct.price
-        }),);
+        }),
+      );
 
       _items[prodIndex] = newProduct;
       notifyListeners();
@@ -142,10 +146,9 @@ class Products with ChangeNotifier {
   }
 
   Future<void> removeProduct(String id) async {
-    
-      final url = Uri.parse(
+    final url = Uri.parse(
         "https://my-shop-13d8d-default-rtdb.firebaseio.com/products/$id.json");
-      await http.delete(url);
+    await http.delete(url);
 
     _items.removeWhere((prod) => prod.id == id);
     notifyListeners();

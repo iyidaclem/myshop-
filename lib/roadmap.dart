@@ -1,3 +1,14 @@
+// =================== 20/07/2021=========================================
+// 1. updating favorite status on the web
+// modify  toggleFavouriteStatus() in product.dart
+// 2. Storing orders in the web
+// modify the addOrder in the orders.dart by making it future async
+// make order now() button not clickable if the cart is empty in cart_screen.dart
+// extract the flatbutton in cart_screen to stateful widget to display spinner with order is clicked
+
+
+
+// ===============================================================================================================
 // using asyc and await
 //to use async and await in add async before the body of the code
 // ... async { ...}
