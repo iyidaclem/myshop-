@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
+import 'package:myshop/widgets/order_item.dart';
 import './cart.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 
 class OrderItem {
   final String id;
@@ -12,8 +12,7 @@ class OrderItem {
   final DateTime dateTime;
 
   OrderItem(
-      {
-      required this.id,
+      {required this.id,
       required this.amount,
       required this.products,
       required this.dateTime});
@@ -26,36 +25,64 @@ class Orders with ChangeNotifier {
     return [..._orders];
   }
 
+  Future<void> fetchAndSetOrders() async {
+    final url = Uri.parse(
+        "https://my-shop-13d8d-default-rtdb.firebaseio.com/orders.json");
+    final response = await http.get(url);
+    final List<OrderItem> loadedOrders = [];
+    final extractedData = json.decode(response.body) as Map<String, dynamic>;
+     
+    extractedData.forEach((orderId, orderData) {
+      loadedOrders.add(OrderItem(
+        id: orderId,
+        amount: orderData['amount'],
+        dateTime: DateTime.parse(orderData['dateTime']),
+        products: (orderData['products'] as List<dynamic>)
+            .map((item) => CartItem(
+                id: item["id"],
+                title: item["title"],
+                quantity: item["quantity"],
+                price: item["price"]))
+            .toList(),
+      ));
+    });
+
+    _orders = loadedOrders;
+    notifyListeners();
+  }
+
   Future<void> addOrder(List<CartItem> cartProducts, double total) async {
     var timestamp = DateTime.now();
-       final url = Uri.parse(
+    final url = Uri.parse(
         "https://my-shop-13d8d-default-rtdb.firebaseio.com/orders.json");
     try {
       final response = await http.post(
         url,
-        body:json.encode({
-          "amount":total,
-          "dateTime":timestamp.toIso8601String(),
-          "products":cartProducts.map((e) => {
-            "id":e.id,
-            "title":e.title,
-            "quantity":e.quantity,
-            "price":e.price
-          }).toList()
+        body: json.encode({
+          "amount": total,
+          "dateTime": timestamp.toIso8601String(),
+          "products": cartProducts
+              .map((e) => {
+                    "id": e.id,
+                    "title": e.title,
+                    "quantity": e.quantity,
+                    "price": e.price
+                  })
+              .toList()
         }),
       );
-  
-    _orders.insert(
-      0,
-      OrderItem(
-        id: json.decode(response.body)["name"],
-        amount: total,
-        dateTime: timestamp,
-        products: cartProducts,
-      ),
-    );
-    notifyListeners();
-    }catch(error){
+
+      _orders.insert(
+        0,
+        OrderItem(
+          id: json.decode(response.body)["name"],
+          amount: total,
+          dateTime: timestamp,
+          products: cartProducts,
+        ),
+      );
+      notifyListeners();
+    } catch (error) {
       throw error;
     }
   }

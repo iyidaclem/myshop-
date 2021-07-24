@@ -1,3 +1,13 @@
+// =================== 24/07/2021=========================================
+// fetching and setting orders
+// 1. add fetchAndSetOrders() method in  orders.dart
+// 2. create _isLoading variable to wait for fetching and setting in orders_screen.dart
+// 3. use ternary operatory to display spinner while fetching orders
+
+
+
+
+
 // =================== 20/07/2021=========================================
 // 1. updating favorite status on the web
 // modify  toggleFavouriteStatus() in product.dart
