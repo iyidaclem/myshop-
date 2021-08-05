@@ -1,4 +1,11 @@
-// =======================02/08/2021=======================================
+// =======================05/08/2021=======================================
+// Adding Animation to our app
+//Go to auth screen
+//
+//
+//
+//
+//// =======================03/08/2021=======================================
 // Managing auth locally
 // Wrap the material app in a consumer<Auth> in main.dart: this is to ensure that it rebuild when ever auth changes
 // Go to auth.dart and create a getter isAuth for checking authentcation status
