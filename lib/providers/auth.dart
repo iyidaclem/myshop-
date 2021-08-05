@@ -66,8 +66,6 @@ class Auth with ChangeNotifier {
     _token = "";
     _userId = "";
     _expiryDate.subtract(Duration(days: 360));
-    
-
     notifyListeners();
   }
 
