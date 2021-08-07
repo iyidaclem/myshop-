@@ -1,9 +1,13 @@
 // =======================05/08/2021=======================================
 // Adding Animation to our app
 //Go to auth screen
-//
-//
-//
+//add AnimationController
+//initialize the animation in initstate
+//add mixin SingleTickerProviderStateMixin to _AuthCardState
+// now apply the animation in the height property of container in auth_screen and also in the boxConstrants
+//add event listener to _heightAnination: this is to enable it setState and rebuild the 
+// now start the animation in _switchAuthMode using _controller.forward() and _controller.reverse()
+//dispose the controller to clean memory
 //
 //// =======================03/08/2021=======================================
 // Managing auth locally

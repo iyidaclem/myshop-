@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myshop/providers/auth.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/products_grid.dart';
@@ -44,7 +45,8 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('MyShop'),
+        title: Text('MyShop ${Provider.of<Auth>(context).luck}'),
+        
         actions: <Widget>[
           PopupMenuButton(
             onSelected: (FilterOptions selectedValue) {

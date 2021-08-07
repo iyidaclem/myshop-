@@ -50,6 +50,15 @@ class AppDrawer extends StatelessWidget {
               Provider.of<Auth>(context,listen: false).logout();
             },
           ),
+           Divider(),
+          ListTile(
+            leading: Icon(Icons.favorite_rounded),
+            title: Text("Lucky number"),
+            onTap: (){
+              Navigator.of(context).pop();
+              Provider.of<Auth>(context,listen: false).lucky();
+            },
+          ),
         ],
       ),
     );
