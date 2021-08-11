@@ -1,3 +1,22 @@
+// Using built in animation methods
+//instead of creating animation manually and initializing it in initState,
+//use animated container in the place you want to animate
+// 1. wrap the container in AnimatedContainer
+// 2. provide the duration  using Duration() object
+// 3. set the curve
+
+//Fading image 
+//when fetching image from network, you can simply put image placeholder while waiting for the main image to be fetched
+//You can acheieve this using FadeInImage(), 
+// Go to product_item.dart and replace our NetworkImage with FadeInImage();
+
+//Using hero widget
+//Hero widget is used to fade object from one screen to another
+//wrap the object you want to apply hero effect with Hero() : in this case FadeInImage in product_item.dart to
+// Image.Netork in product_detail_screen.dart
+
+//Using Slivers
+
 // =======================05/08/2021=======================================
 // Adding Animation to our app
 //Go to auth screen

@@ -7,8 +7,43 @@ import '../models/http_exception.dart';
 
 enum AuthMode { Signup, Login }
 
-class AuthScreen extends StatelessWidget {
+class AuthScreen extends StatefulWidget {
   static const routeName = '/auth';
+
+  @override
+  _AuthScreenState createState() => _AuthScreenState();
+}
+
+class _AuthScreenState extends State<AuthScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _offsetController;
+
+  late Animation<Offset> _offsetAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _offsetController =
+        AnimationController(vsync: this, duration: Duration(seconds: 1));
+
+    // _heightAnimation = Tween<Size>(
+    //         begin: Size(double.infinity, 260), end: Size(double.infinity, 320))
+    //     .animate(CurvedAnimation(parent: _controller, curve: Curves.linear));
+
+    // _heightAnimation.addListener(() =>setState(() { }));
+
+    _offsetAnimation = Tween<Offset>(begin: Offset(0, -5), end: Offset(0, 0))
+        .animate(
+            CurvedAnimation(parent: _offsetController, curve: Curves.linear));
+    Future.delayed(Duration(seconds: 0))
+        .then((value) => _offsetController.forward());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _offsetController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,34 +76,40 @@ class AuthScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Flexible(
-                    child: Container(
-                      margin: EdgeInsets.only(bottom: 20.0),
-                      padding:
-                          EdgeInsets.symmetric(vertical: 8.0, horizontal: 94.0),
-                      transform: Matrix4.rotationZ(-8 * pi / 180)
-                        ..translate(-10.0),
-                      // ..translate(-10.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.deepOrange.shade900,
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 8,
-                            color: Colors.black26,
-                            offset: Offset(0, 2),
-                          )
-                        ],
-                      ),
-                      child: Text(
-                        'MyShop',
-                        style: TextStyle(
-                          color: Theme.of(context)
-                              .accentTextTheme
-                              .headline1!
-                              .color,
-                          fontSize: 50,
-                          fontFamily: 'Anton',
-                          fontWeight: FontWeight.normal,
+                    child: SlideTransition(
+                      position: _offsetAnimation,
+                      child: AnimatedContainer(
+                        margin: EdgeInsets.only(bottom: 20.0),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 94.0),
+                        transform: Matrix4.rotationZ(-8 * pi / 180)
+                          ..translate(-10.0),
+                        // ..translate(-10.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.deepOrange.shade900,
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 8,
+                              color: Colors.black26,
+                              offset: Offset(0, 2),
+                            )
+                          ],
+                        ),
+                        duration: Duration(milliseconds: 500),
+                        curve: Curves.fastOutSlowIn,
+
+                        child: Text(
+                          'MyShop',
+                          style: TextStyle(
+                            color: Theme.of(context)
+                                .accentTextTheme
+                                .headline1!
+                                .color,
+                            fontSize: 50,
+                            fontFamily: 'Anton',
+                            fontWeight: FontWeight.normal,
+                          ),
                         ),
                       ),
                     ),
@@ -115,17 +156,17 @@ class _AuthCardState extends State<AuthCard>
     _controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 500));
 
-    _heightAnimation = Tween<Size>(
-            begin: Size(double.infinity, 260), end: Size(double.infinity, 320))
-        .animate(CurvedAnimation(parent: _controller, curve: Curves.linear));
+    // _heightAnimation = Tween<Size>(
+    //         begin: Size(double.infinity, 260), end: Size(double.infinity, 320))
+    //     .animate(CurvedAnimation(parent: _controller, curve: Curves.linear));
 
-        _heightAnimation.addListener(() =>setState(() { }));
+    // _heightAnimation.addListener(() =>setState(() { }));
   }
 
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
-    _controller.dispose();
+    // _controller.dispose();
   }
 
   void _showErrorDialog(String message) {
@@ -190,12 +231,12 @@ class _AuthCardState extends State<AuthCard>
     if (_authMode == AuthMode.Login) {
       setState(() {
         _authMode = AuthMode.Signup;
-        _controller.forward();
+        // _controller.forward();
       });
     } else {
       setState(() {
         _authMode = AuthMode.Login;
-        _controller.reverse();
+        // _controller.reverse();
       });
     }
   }
@@ -208,13 +249,16 @@ class _AuthCardState extends State<AuthCard>
         borderRadius: BorderRadius.circular(10.0),
       ),
       elevation: 8.0,
-      child: Container(
-        // height: _authMode == AuthMode.Signup ? 320 : 260,
-        height: _heightAnimation.value.height,
+      child: AnimatedContainer(
+        height: _authMode == AuthMode.Signup ? 320 : 260,
+        // height: _heightAnimation.value.height,
         constraints:
-            BoxConstraints(minHeight: _heightAnimation.value.height),
+            // BoxConstraints(minHeight: _heightAnimation.value.height),
+            BoxConstraints(minHeight: _authMode == AuthMode.Signup ? 320 : 260),
         width: deviceSize.width * 0.75,
         padding: EdgeInsets.all(16.0),
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeIn,
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(

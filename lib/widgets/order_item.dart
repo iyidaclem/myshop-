@@ -36,10 +36,12 @@ class _OrderItemState extends State<OrderItem> {
               },
             ),
           ),
-          if (_expanded)
-            Container(
+          // if (_expanded)
+            AnimatedContainer(
+              duration:Duration(milliseconds: 300),
+
               padding: EdgeInsets.only(left: 13,right: 10),
-              height: min(widget.order.products.length * 20 + 100, 180),
+              height:_expanded? min(widget.order.products.length * 20 + 100, 110):0,
               child: ListView(
                   children: widget.order.products
                       .map((e) => Row(
